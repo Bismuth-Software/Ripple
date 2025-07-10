@@ -1,3 +1,13 @@
 {
-  "item.ripple.example": "example"
+  "creativetab.ripple": "Ripple",
+
+  "item.ripple.bull_kelp": "Bull Kelp",
+  "item.ripple.dried_bull_kelp": "Dried Bull Kelp",
+
+  "item.ripple.raw_tuna": "Raw Tuna",
+  "item.ripple.cooked_tuna": "Cooked Tuna",
+  "item.ripple.razortooth_tuna": "Razortooth Tuna",
+
+  "item.ripple.tuna_spawn_egg": "Tuna Spawn Egg",
+  "entity.ripple.tuna": "Tuna"
 }

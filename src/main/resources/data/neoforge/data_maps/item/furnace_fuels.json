@@ -1,0 +1,10 @@
+{
+  "values": {
+    "minecraft:dried_kelp": {
+      "burn_time": 400
+    },
+    "ripple:dried_bull_kelp": {
+      "burn_time": 400
+    }
+  }
+}

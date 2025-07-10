@@ -1,29 +1,43 @@
 package net.ascens.ripple;
 
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.item.CreativeModeTab;
+import net.ascens.ripple.block.RBlocks;
+import net.ascens.ripple.entity.REntities;
+import net.ascens.ripple.entity.client.TunaRenderer;
+import net.ascens.ripple.event.REventBusEvents;
+import net.ascens.ripple.item.RCreativeTabs;
+import net.ascens.ripple.item.RItems;
+import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 @Mod(Ripple.MOD_ID)
 public class Ripple {
     public static final String MOD_ID = "ripple";
-    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MOD_ID);
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MOD_ID);
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
 
     public Ripple(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
-        BLOCKS.register(modEventBus);
-        ITEMS.register(modEventBus);
-        CREATIVE_MODE_TABS.register(modEventBus);
-        NeoForge.EVENT_BUS.register(this);
+
+        RBlocks.register(modEventBus);
+        RItems.register(modEventBus);
+        RCreativeTabs.register(modEventBus);
+
+        REntities.register(modEventBus);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
+    }
+
+    @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientModEvents {
+        @SubscribeEvent
+        public static void onClientSetup(FMLClientSetupEvent event) {
+            EntityRenderers.register(REntities.TUNA.get(), TunaRenderer::new);
+        }
     }
 }

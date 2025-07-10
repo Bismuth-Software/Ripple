@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smoking",
+  "category": "misc",
+  "cookingtime": 100,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "ripple:bull_kelp"
+  },
+  "result": {
+    "count": 1,
+    "id": "ripple:dried_bull_kelp"
+  }
+}
