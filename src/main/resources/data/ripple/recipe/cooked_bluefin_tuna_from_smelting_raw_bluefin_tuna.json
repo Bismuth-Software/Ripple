@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 200,
+  "experience": 0.4,
+  "ingredient": {
+    "item": "ripple:raw_bluefin_tuna"
+  },
+  "result": {
+    "count": 1,
+    "id": "ripple:cooked_bluefin_tuna"
+  }
+}

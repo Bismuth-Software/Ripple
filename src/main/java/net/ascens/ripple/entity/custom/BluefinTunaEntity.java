@@ -1,11 +1,8 @@
 package net.ascens.ripple.entity.custom;
 
 import net.ascens.ripple.item.RItems;
-import net.minecraft.Util;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
@@ -23,20 +20,20 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
-public class TunaEntity extends Salmon {
+public class BluefinTunaEntity extends Salmon {
     public final AnimationState idleAnimationState = new AnimationState();
     public final AnimationState flopAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
 
-    public TunaEntity(EntityType<? extends Salmon> entityType, Level level) {
+    public BluefinTunaEntity(EntityType<? extends Salmon> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 0, 0.02F, 0.1F, true);
         this.lookControl = new SmoothSwimmingLookControl(this, 10);
     }
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(RItems.TUNA_BUCKET.get());
+        return new ItemStack(RItems.BLUEFIN_TUNA_BUCKET.get());
     }
 
     @Override
@@ -96,8 +93,6 @@ public class TunaEntity extends Salmon {
             this.setupAnimationStates();
         }
     }
-
-    /* VARIANTS */
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {

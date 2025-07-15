@@ -4,10 +4,10 @@
   "cookingtime": 100,
   "experience": 0.4,
   "ingredient": {
-    "item": "ripple:raw_tuna"
+    "item": "ripple:raw_yellowfin_tuna"
   },
   "result": {
     "count": 1,
-    "id": "ripple:cooked_tuna"
+    "id": "ripple:cooked_yellowfin_tuna"
   }
 }

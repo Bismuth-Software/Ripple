@@ -4,11 +4,19 @@
   "item.ripple.bull_kelp": "Bull Kelp",
   "item.ripple.dried_bull_kelp": "Dried Bull Kelp",
 
-  "item.ripple.raw_tuna": "Raw Tuna",
-  "item.ripple.cooked_tuna": "Cooked Tuna",
+  "item.ripple.raw_bluefin_tuna": "Raw Bluefin Tuna",
+  "item.ripple.cooked_bluefin_tuna": "Cooked Bluefin Tuna",
   "item.ripple.razortooth_tuna": "Razortooth Tuna",
+  "entity.ripple.bluefin_tuna": "Bluefin Tuna",
+  "entity.ripple.razortooth_tuna": "Bluefin Tuna...?",
+  "item.ripple.bluefin_tuna_spawn_egg": "Bluefin Tuna Spawn Egg",
+  "item.ripple.bluefin_tuna_bucket": "Bucket of Bluefin Tuna",
 
-  "item.ripple.tuna_spawn_egg": "Tuna Spawn Egg",
-  "item.ripple.tuna_bucket": "Tuna Spawn Egg",
-  "entity.ripple.tuna": "Tuna"
+  "item.ripple.raw_yellowfin_tuna": "Raw Yellowfin Tuna",
+  "item.ripple.cooked_yellowfin_tuna": "Cooked Yellowfin Tuna",
+  "item.ripple.temp_tuna": "Temp Tuna",
+  "entity.ripple.yellowfin_tuna": "Yellowfin Tuna",
+  "entity.ripple.temp_tuna": "Yellowfin Tuna...?",
+  "item.ripple.yellowfin_tuna_spawn_egg": "Yellowfin Tuna Spawn Egg",
+  "item.ripple.yellowfin_tuna_bucket": "Bucket of Yellowfin Tuna"
 }

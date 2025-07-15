@@ -2,8 +2,8 @@ package net.ascens.ripple;
 
 import net.ascens.ripple.block.RBlocks;
 import net.ascens.ripple.entity.REntities;
-import net.ascens.ripple.entity.client.TunaRenderer;
-import net.ascens.ripple.event.REventBusEvents;
+import net.ascens.ripple.entity.client.BluefinTunaRenderer;
+import net.ascens.ripple.entity.client.YellowfinTunaRenderer;
 import net.ascens.ripple.item.RCreativeTabs;
 import net.ascens.ripple.item.RItems;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -37,7 +37,8 @@ public class Ripple {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            EntityRenderers.register(REntities.TUNA.get(), TunaRenderer::new);
+            EntityRenderers.register(REntities.BLUEFIN_TUNA.get(), BluefinTunaRenderer::new);
+            EntityRenderers.register(REntities.YELLOWFIN_TUNA.get(), YellowfinTunaRenderer::new);
         }
     }
 }

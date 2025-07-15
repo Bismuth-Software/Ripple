@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "ripple:item/raw_tuna"
+    "layer0": "ripple:item/cooked_yellowfin_tuna"
   }
 }

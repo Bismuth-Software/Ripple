@@ -3,21 +3,19 @@ package net.ascens.ripple.entity.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.ascens.ripple.Ripple;
-import net.ascens.ripple.entity.custom.TunaEntity;
+import net.ascens.ripple.entity.custom.BluefinTunaEntity;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.NotNull;
 
-public class TunaModel<T extends TunaEntity> extends HierarchicalModel<T> {
-        // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
+public class BluefinTunaModel<T extends BluefinTunaEntity> extends HierarchicalModel<T> {
         public static final ModelLayerLocation LAYER_LOCATION =
-                new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Ripple.MOD_ID, "gecko"), "main");
+                new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(Ripple.MOD_ID, "bluefin_tuna"), "main");
         private final ModelPart root;
         private final ModelPart root2;
         private final ModelPart head_left;
@@ -29,7 +27,7 @@ public class TunaModel<T extends TunaEntity> extends HierarchicalModel<T> {
         private final ModelPart back_fin_left;
         private final ModelPart back_fin_right;
 
-        public TunaModel(ModelPart root) {
+        public BluefinTunaModel(ModelPart root) {
             this.root = root.getChild("root");
             this.root2 = this.root.getChild("root2");
             this.head_left = this.root2.getChild("head_left");
@@ -75,8 +73,9 @@ public class TunaModel<T extends TunaEntity> extends HierarchicalModel<T> {
         }
 
     @Override
-    public void setupAnim(TunaEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(@NotNull BluefinTunaEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
+        this.applyHeadRotation(netHeadYaw, headPitch);
         if (entity.isInWater()) {
             this.animateWalk(TunaAnimations.tunaAnimation.ANIM_TUNA_SWIM, limbSwing, limbSwingAmount, 2f, 2.5f);
             this.animate(entity.idleAnimationState, TunaAnimations.tunaAnimation.ANIM_TUNA_SWIM, ageInTicks, 1f);
@@ -85,7 +84,7 @@ public class TunaModel<T extends TunaEntity> extends HierarchicalModel<T> {
         }
     }
 
-  /*  private void applyHeadRotation(float headYaw, float headPitch) {
+    private void applyHeadRotation(float headYaw, float headPitch) {
         headYaw = Mth.clamp(headYaw, -30f, 30f);
         headPitch = Mth.clamp(headPitch, -25f, 45);
 
@@ -93,7 +92,7 @@ public class TunaModel<T extends TunaEntity> extends HierarchicalModel<T> {
         this.head_right.yRot = headYaw * ((float)Math.PI / 180f);
         this.head_left.xRot = headPitch *  ((float)Math.PI / 180f);
         this.head_right.xRot = headPitch *  ((float)Math.PI / 180f);
-    }*/
+    }
 
         @Override
         public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
