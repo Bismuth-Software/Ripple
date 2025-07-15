@@ -77,13 +77,15 @@ public class TunaModel<T extends TunaEntity> extends HierarchicalModel<T> {
     @Override
     public void setupAnim(TunaEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(netHeadYaw, headPitch);
-
-        this.animateWalk(TunaAnimations.tunaAnimation.ANIM_TUNA_SWIM, limbSwing, limbSwingAmount, 2f, 2.5f);
-        this.animate(entity.idleAnimationState, TunaAnimations.tunaAnimation.ANIM_TUNA_SWIM, ageInTicks, 1f);
+        if (entity.isInWater()) {
+            this.animateWalk(TunaAnimations.tunaAnimation.ANIM_TUNA_SWIM, limbSwing, limbSwingAmount, 2f, 2.5f);
+            this.animate(entity.idleAnimationState, TunaAnimations.tunaAnimation.ANIM_TUNA_SWIM, ageInTicks, 1f);
+        } else {
+            this.animate(entity.flopAnimationState, TunaAnimations.tunaAnimation.ANIM_TUNA_FLOP, ageInTicks, 1f);
+        }
     }
 
-    private void applyHeadRotation(float headYaw, float headPitch) {
+  /*  private void applyHeadRotation(float headYaw, float headPitch) {
         headYaw = Mth.clamp(headYaw, -30f, 30f);
         headPitch = Mth.clamp(headPitch, -25f, 45);
 
@@ -91,7 +93,7 @@ public class TunaModel<T extends TunaEntity> extends HierarchicalModel<T> {
         this.head_right.yRot = headYaw * ((float)Math.PI / 180f);
         this.head_left.xRot = headPitch *  ((float)Math.PI / 180f);
         this.head_right.xRot = headPitch *  ((float)Math.PI / 180f);
-    }
+    }*/
 
         @Override
         public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {

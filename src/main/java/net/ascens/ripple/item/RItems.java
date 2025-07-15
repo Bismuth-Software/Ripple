@@ -2,13 +2,15 @@ package net.ascens.ripple.item;
 
 import net.ascens.ripple.Ripple;
 import net.ascens.ripple.entity.REntities;
+import net.ascens.ripple.item.custom.TunaBucket;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.material.Fluids;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.neoforged.neoforge.registries.datamaps.builtin.FurnaceFuel;
 
 public class RItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(Ripple.MOD_ID);
@@ -33,6 +35,9 @@ public class RItems {
                     .saturationModifier(0.2f)
                     .build())));
 
+    public static final DeferredItem<Item> TUNA_BUCKET = ITEMS.register("tuna_bucket",
+            () -> new TunaBucket(REntities.TUNA.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH,
+                    new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> TUNA_SPAWN_EGG = ITEMS.register("tuna_spawn_egg",
             () -> new DeferredSpawnEggItem(REntities.TUNA, 0x31afaf, 0xffac00,
                     new Item.Properties()));

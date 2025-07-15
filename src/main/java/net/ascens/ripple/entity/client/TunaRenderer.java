@@ -15,7 +15,7 @@ public class TunaRenderer extends MobRenderer<TunaEntity, TunaModel<TunaEntity>>
 
     @Override
     public ResourceLocation getTextureLocation(TunaEntity entity) {
-        return ResourceLocation.fromNamespaceAndPath(Ripple.MOD_ID, "textures/entity/gecko/gecko_blue.png");
+        return ResourceLocation.fromNamespaceAndPath(Ripple.MOD_ID, "textures/entity/tuna/tuna.png");
     }
 
     @Override

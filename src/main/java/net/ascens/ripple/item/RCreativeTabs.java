@@ -22,6 +22,7 @@ public class RCreativeTabs {
                         output.accept(RItems.RAW_TUNA);
                         output.accept(RItems.COOKED_TUNA);
                         output.accept(RItems.RAZORTOOTH_TUNA);
+                        output.accept(RItems.TUNA_BUCKET);
                         output.accept(RItems.TUNA_SPAWN_EGG);
                     }).build());
 

@@ -1,65 +1,90 @@
 package net.ascens.ripple.entity.custom;
 
-import net.ascens.ripple.entity.REntities;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.AgeableMob;
-import net.minecraft.world.entity.AnimationState;
-import net.minecraft.world.entity.EntityType;
+import net.ascens.ripple.item.RItems;
+import net.minecraft.Util;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingLookControl;
+import net.minecraft.world.entity.ai.control.SmoothSwimmingMoveControl;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.animal.AbstractFish;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
+import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
-public class TunaEntity extends Animal {
-
+public class TunaEntity extends Salmon {
     public final AnimationState idleAnimationState = new AnimationState();
+    public final AnimationState flopAnimationState = new AnimationState();
     private int idleAnimationTimeout = 0;
 
-    public TunaEntity(EntityType<? extends Animal> entityType, Level level) {
+    public TunaEntity(EntityType<? extends Salmon> entityType, Level level) {
         super(entityType, level);
+        this.moveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.02F, 0.1F, true);
+        this.lookControl = new SmoothSwimmingLookControl(this, 10);
+    }
+
+    @Override
+    public ItemStack getBucketItemStack() {
+        return new ItemStack(RItems.TUNA_BUCKET.get());
+    }
+
+    @Override
+    public void saveToBucketTag(ItemStack stack) {
+        Bucketable.saveDefaultDataToBucketTag(this, stack);
+        CustomData.update(DataComponents.BUCKET_ENTITY_DATA, stack, (p_330644_) -> {
+        });
+    }
+
+    @Override
+    public void loadFromBucketTag(CompoundTag tag) {
+        Bucketable.loadDefaultDataFromBucketTag(this, tag);
     }
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new RandomSwimmingGoal(this, 1.0, 1));
-
-        this.goalSelector.addGoal(1, new PanicGoal(this, 1.0));
-
-        this.goalSelector.addGoal(4, new FollowParentGoal(this, 1.25));
-
-        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0F));
-        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
-        super.registerGoals();
+        this.goalSelector.addGoal(0, new BreathAirGoal(this));
+        this.goalSelector.addGoal(1, new TryFindWaterGoal(this));
+        this.goalSelector.addGoal(2, new PanicGoal(this, 1.25D));
+        this.goalSelector.addGoal(4, new RandomSwimmingGoal(this, 1.0D, 40));
+        this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Animal.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 6d)
-                .add(Attributes.MOVEMENT_SPEED, 0.25D)
-                .add(Attributes.FOLLOW_RANGE, 10d);
+        return TropicalFish.createAttributes()
+                .add(Attributes.MAX_HEALTH, 8.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.75)
+                .add(Attributes.FOLLOW_RANGE, 16.0D);
     }
 
     @Override
-    public boolean isFood(ItemStack itemStack) {
-        return false;
+    protected PathNavigation createNavigation(Level level) {
+        return new WaterBoundPathNavigation(this, level);
     }
 
-    @Override
-    public @Nullable AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        return REntities.TUNA.get().create(level());
-    }
+    private void setupAnimationStates() {
+        if (this.isInWater()) {
+            this.flopAnimationState.stop();
 
-   /* private void setupAnimationStates() {
-        if (this.idleAnimationTimeout <= 0) {
-            this.idleAnimationTimeout = 80; // tick amount
-            this.idleAnimationState.start(this.tickCount);
+            if (this.idleAnimationTimeout <= 0) {
+                this.idleAnimationTimeout = this.getRandom().nextInt(40) + 80;
+                this.idleAnimationState.start(this.tickCount);
+            } else {
+                --this.idleAnimationTimeout;
+            }
         } else {
-            --this.idleAnimationTimeout;
+            this.idleAnimationState.stop();
+            this.flopAnimationState.startIfStopped(this.tickCount);
         }
     }
 
@@ -67,11 +92,30 @@ public class TunaEntity extends Animal {
     public void tick() {
         super.tick();
 
-        if(this.level().isClientSide()) {
+        if (this.level().isClientSide()) {
             this.setupAnimationStates();
         }
     }
 
-    private void setupAnimationStates() {
-    }*/
+    /* VARIANTS */
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+    }
+
+    @Override
+    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+    }
 }
