@@ -2,7 +2,7 @@ package net.ascens.ripple.item;
 
 import net.ascens.ripple.Ripple;
 import net.ascens.ripple.entity.REntities;
-import net.ascens.ripple.item.custom.TunaBucket;
+import net.ascens.ripple.item.custom.TunaNet;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -35,10 +35,10 @@ public class RItems {
                     .saturationModifier(0.2f)
                     .build())));
     public static final DeferredItem<Item> BLUEFIN_TUNA_BUCKET = ITEMS.register("bluefin_tuna_bucket",
-            () -> new TunaBucket(REntities.BLUEFIN_TUNA.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH,
+            () -> new TunaNet(REntities.BLUEFIN_TUNA.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH,
                     new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> BLUEFIN_TUNA_SPAWN_EGG = ITEMS.register("bluefin_tuna_spawn_egg",
-            () -> new DeferredSpawnEggItem(REntities.BLUEFIN_TUNA, 0x31afaf, 0xffac00,
+            () -> new DeferredSpawnEggItem(REntities.BLUEFIN_TUNA, 0x2b3b6a, 0xa38c2e,
                     new Item.Properties()));
 
     //Yellowfin Tuna
@@ -58,10 +58,10 @@ public class RItems {
                     .saturationModifier(0.2f)
                     .build())));
     public static final DeferredItem<Item> YELLOWFIN_TUNA_BUCKET = ITEMS.register("yellowfin_tuna_bucket",
-            () -> new TunaBucket(REntities.YELLOWFIN_TUNA.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH,
+            () -> new TunaNet(REntities.YELLOWFIN_TUNA.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH,
                     new Item.Properties().stacksTo(1)));
     public static final DeferredItem<Item> YELLOWFIN_TUNA_SPAWN_EGG = ITEMS.register("yellowfin_tuna_spawn_egg",
-            () -> new DeferredSpawnEggItem(REntities.YELLOWFIN_TUNA, 0x31afaf, 0xffac00,
+            () -> new DeferredSpawnEggItem(REntities.YELLOWFIN_TUNA, 0x2a5172, 0xa38c2e,
                     new Item.Properties()));
 
     public static void register(IEventBus eventBus) {

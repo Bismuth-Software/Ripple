@@ -6,8 +6,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.level.material.Fluid;
 
-public class TunaBucket extends MobBucketItem {
-    public TunaBucket(EntityType<?> entityType, Fluid fluid, SoundEvent soundEvent, Item.Properties properties) {
+public class TunaNet extends MobBucketItem {
+    public TunaNet(EntityType<?> entityType, Fluid fluid, SoundEvent soundEvent, Item.Properties properties) {
         super(entityType, fluid, soundEvent, properties);
     }
 }
